@@ -6,7 +6,7 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
   const [Propietario, setPropietario] = useState('')
   const [Email, setEmail] = useState('')
   const [Alta, setAlta] = useState('')
-  const [Sintomas, setSintomas] = useState('')
+  
   const [error, setError] = useState(false)
 
   useEffect(() => {
@@ -15,21 +15,21 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
       setPropietario(Edicion.Propietario)
       setEmail(Edicion.Email)
       setAlta(Edicion.Alta)
-      setSintomas(Edicion.Sintomas)
+      
     }
   }, [Edicion])
 
   const generarID = () => {
     const random = Math.random().toString(36).substring(2)
-    const fecha = Date.now().toString(36)
+    const fecha = Date.now()
 
-    return random + fecha
+    return fecha
   }
 
   const handleSubmit = (e) => {
 
 
-    if ([Cliente, Propietario, Email, Alta, Sintomas].includes('')) {
+    if ([Cliente, Propietario, Email, Alta].includes('')) {
       setError(true)
     }
     else {
@@ -41,8 +41,7 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
         Cliente,
         Propietario,
         Email,
-        Alta,
-        Sintomas
+        Alta
 
       }
 
@@ -66,28 +65,28 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
       setPropietario('')
       setEmail('')
       setAlta('')
-      setSintomas('')
+      
     }
   }
 
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
-      <h2 className="font-black text-3xl text-center mt-5 mb-5">Seguimiento Pacientes</h2>
+      <h2 className="font-black text-3xl text-center mt-5 mb-5">Solicitud medicamentos</h2>
 
-      <p className="font-black">Añade Pacientes y{' '}<span className="text-indigo-600" >Administralos</span></p>
+      <p className="font-black">Solicite medicamentos {' '}<span className="text-indigo-600" >Prescriptos</span></p>
 
       <form
         onSubmit={handleSubmit}
         className="uppercase"
       >
         <div className="mt-5">
-          <label htmlFor='mascota' className="font-bold text-indigo-600">Nombre Mascota</label>
+          <label htmlFor='mascota' className="font-bold text-indigo-600">Matricula</label>
           <input
             required
             id='mascota'
-            type="text"
-            placeholder='Nombre Mascota'
+            type="number"
+            placeholder='Nro. Matricula'
             className="border-2 w-full p-2 mt-2 rounded-md shadow-md"
             value={Cliente}
             onChange={(e) => setCliente(e.target.value)}
@@ -96,12 +95,12 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
 
 
         <div className="mt-5">
-          <label htmlFor='propietario' className="font-bold text-indigo-600">Nombre Propietario</label>
+          <label htmlFor='propietario' className="font-bold text-indigo-600">Nombre Medico</label>
           <input
             required
             id='propietario'
             type="text"
-            placeholder='Nombre Propietario'
+            placeholder='Nombre Medico'
             className="border-2 w-full p-2 mt-2 rounded-md shadow-md"
             value={Propietario}
             onChange={(e) => setPropietario(e.target.value)}
@@ -109,12 +108,12 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
         </div>
 
         <div className="mt-5">
-          <label htmlFor='email' className="font-bold text-indigo-600 ">Email</label>
+          <label htmlFor='email' className="font-bold text-indigo-600 ">Nombre Medicamento</label>
           <input
             required
             id='email'
-            type="email"
-            placeholder='Email'
+            type="text"
+            placeholder='Medicamento'
             className="border-2 w-full p-2 mt-2 rounded-md shadow-md"
             value={Email}
             onChange={(e) => setEmail(e.target.value)}
@@ -122,7 +121,7 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
         </div>
 
         <div className="mt-5">
-          <label htmlFor='alta' className="font-bold text-indigo-600">Fecha de Alta</label>
+          <label htmlFor='alta' className="font-bold text-indigo-600">Fecha de solicitud</label>
           <input
             required
             id='alta'
@@ -134,17 +133,7 @@ export const Formulario = ({ Pacientes, setPacientes, Edicion,setEdicion }) => {
         </div>
 
 
-        <div className="mt-5">
-          <label htmlFor='sintomas' className="font-bold text-indigo-600">Sintomas</label>
-          <textarea
-            required
-            id='sintomas'
-            className="border-2 w-full p-2 mt-2 rounded-md"
-            placeholder='Describe los Sintomas...'
-            value={Sintomas}
-            onChange={(e) => setSintomas(e.target.value)}
-          />
-        </div>
+      
 
         {error && <p className="text-red-600 normal-case">*Faltan llenar campos</p>}
 
